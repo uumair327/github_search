@@ -1,0 +1,64 @@
+name: Deploy Angular to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'angular_github_search/**'
+      - 'common_github_search/**'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'angular_github_search/**'
+      - 'common_github_search/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Dart SDK
+      uses: dart-lang/setup-dart@v1
+      with:
+        sdk: '3.9.2'
+        
+    - name: Install dependencies for common package
+      run: |
+        cd common_github_search
+        dart pub get
+        
+    - name: Install dependencies for Angular app
+      run: |
+        cd angular_github_search
+        dart pub get
+        
+    - name: Analyze common package
+      run: |
+        cd common_github_search
+        dart analyze
+        
+    - name: Analyze Angular app
+      run: |
+        cd angular_github_search
+        dart analyze
+        
+    - name: Build Angular web app
+      run: |
+        cd angular_github_search
+        # Clean any previous builds
+        rm -rf build
+        # Build the app
+        dart run build_runner build web --release --output web:build --delete-conflicting-outputs
+        
+    - name: Deploy to GitHub Pages (Angular)
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: angular_github_search/build
+        destination_dir: angular
+        keep_files: true

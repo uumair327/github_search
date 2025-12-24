@@ -1,0 +1,10 @@
+# Analysis options for angular_github_search
+
+analyzer:
+  exclude: [build/**]
+  errors:
+    uri_has_not_been_generated: ignore
+
+linter:
+  rules:
+    public_member_api_docs: false

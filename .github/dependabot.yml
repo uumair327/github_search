@@ -1,0 +1,27 @@
+version: 2
+updates:
+  # Enable version updates for Dart/Flutter dependencies
+  - package-ecosystem: "pub"
+    directory: "/common_github_search"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "pub"
+    directory: "/flutter_github_search"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    
+  - package-ecosystem: "pub"
+    directory: "/angular_github_search"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    
+  # Enable version updates for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5

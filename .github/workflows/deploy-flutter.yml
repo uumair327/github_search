@@ -1,0 +1,62 @@
+name: Deploy Flutter to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'flutter_github_search/**'
+      - 'common_github_search/**'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'flutter_github_search/**'
+      - 'common_github_search/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.35.7'
+        channel: 'stable'
+        
+    - name: Install dependencies for common package
+      run: |
+        cd common_github_search
+        dart pub get
+        
+    - name: Install dependencies for Flutter app
+      run: |
+        cd flutter_github_search
+        flutter pub get
+        
+    - name: Analyze common package
+      run: |
+        cd common_github_search
+        dart analyze
+        
+    - name: Analyze Flutter app
+      run: |
+        cd flutter_github_search
+        flutter analyze
+        
+    - name: Build Flutter web app
+      run: |
+        cd flutter_github_search
+        flutter build web --release --base-href="/github_search/flutter/"
+        
+    - name: Deploy to GitHub Pages (Flutter)
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: flutter_github_search/build/web
+        destination_dir: flutter
+        keep_files: true

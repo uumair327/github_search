@@ -1,0 +1,71 @@
+name: Test & Analyze
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.35.7'
+        channel: 'stable'
+        
+    - name: Setup Dart SDK
+      uses: dart-lang/setup-dart@v1
+      with:
+        sdk: '3.9.2'
+        
+    - name: Install dependencies - Common
+      run: |
+        cd common_github_search
+        dart pub get
+        
+    - name: Install dependencies - Flutter
+      run: |
+        cd flutter_github_search
+        flutter pub get
+        
+    - name: Install dependencies - Angular
+      run: |
+        cd angular_github_search
+        dart pub get
+        
+    - name: Analyze - Common
+      run: |
+        cd common_github_search
+        dart analyze --fatal-infos
+        
+    - name: Analyze - Flutter
+      run: |
+        cd flutter_github_search
+        flutter analyze --fatal-infos
+        
+    - name: Analyze - Angular
+      run: |
+        cd angular_github_search
+        dart analyze --fatal-infos
+        
+    - name: Check formatting - Common
+      run: |
+        cd common_github_search
+        dart format --set-exit-if-changed .
+        
+    - name: Check formatting - Flutter
+      run: |
+        cd flutter_github_search
+        dart format --set-exit-if-changed .
+        
+    - name: Check formatting - Angular
+      run: |
+        cd angular_github_search
+        dart format --set-exit-if-changed .
