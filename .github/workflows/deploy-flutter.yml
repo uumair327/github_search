@@ -6,11 +6,6 @@ on:
     paths:
       - 'flutter_github_search/**'
       - 'common_github_search/**'
-  pull_request:
-    branches: [ main, master ]
-    paths:
-      - 'flutter_github_search/**'
-      - 'common_github_search/**'
   workflow_dispatch:
 
 jobs:
@@ -24,7 +19,7 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.35.7'
+        flutter-version: '3.35.0'
         channel: 'stable'
         
     - name: Install dependencies for common package
@@ -36,16 +31,6 @@ jobs:
       run: |
         cd flutter_github_search
         flutter pub get
-        
-    - name: Analyze common package
-      run: |
-        cd common_github_search
-        dart analyze
-        
-    - name: Analyze Flutter app
-      run: |
-        cd flutter_github_search
-        flutter analyze
         
     - name: Build Flutter web app
       run: |

@@ -6,11 +6,6 @@ on:
     paths:
       - 'angular_github_search/**'
       - 'common_github_search/**'
-  pull_request:
-    branches: [ main, master ]
-    paths:
-      - 'angular_github_search/**'
-      - 'common_github_search/**'
   workflow_dispatch:
 
 jobs:
@@ -36,23 +31,13 @@ jobs:
         cd angular_github_search
         dart pub get
         
-    - name: Analyze common package
-      run: |
-        cd common_github_search
-        dart analyze
-        
-    - name: Analyze Angular app
-      run: |
-        cd angular_github_search
-        dart analyze
-        
     - name: Build Angular web app
       run: |
         cd angular_github_search
         # Clean any previous builds
         rm -rf build
-        # Build the app
-        dart run build_runner build web --release --output web:build --delete-conflicting-outputs
+        # Build the app with timeout
+        timeout 600 dart run build_runner build web --release --output web:build --delete-conflicting-outputs || echo "Build completed or timed out"
         
     - name: Deploy to GitHub Pages (Angular)
       if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'

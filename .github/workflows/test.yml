@@ -17,7 +17,7 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.35.7'
+        flutter-version: '3.35.0'
         channel: 'stable'
         
     - name: Setup Dart SDK
@@ -58,14 +58,14 @@ jobs:
     - name: Check formatting - Common
       run: |
         cd common_github_search
-        dart format --set-exit-if-changed .
+        dart format --output=none --set-exit-if-changed .
         
     - name: Check formatting - Flutter
       run: |
         cd flutter_github_search
-        dart format --set-exit-if-changed .
+        dart format --output=none --set-exit-if-changed .
         
     - name: Check formatting - Angular
       run: |
         cd angular_github_search
-        dart format --set-exit-if-changed .
+        dart format --output=none --set-exit-if-changed .
