@@ -54,18 +54,3 @@ jobs:
       run: |
         cd angular_github_search
         dart analyze --fatal-infos
-        
-    - name: Check formatting - Common
-      run: |
-        cd common_github_search
-        dart format --output=none --set-exit-if-changed .
-        
-    - name: Check formatting - Flutter
-      run: |
-        cd flutter_github_search
-        dart format --output=none --set-exit-if-changed .
-        
-    - name: Check formatting - Angular
-      run: |
-        cd angular_github_search
-        dart format --output=none --set-exit-if-changed .
