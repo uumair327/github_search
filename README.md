@@ -1,6 +1,6 @@
 [![build](https://github.com/felangel/bloc/actions/workflows/main.yaml/badge.svg)](https://github.com/felangel/bloc/actions)
-[![Flutter Deploy](https://github.com/umairelyx/github_search/actions/workflows/deploy-flutter.yml/badge.svg)](https://github.com/umairelyx/github_search/actions/workflows/deploy-flutter.yml)
-[![Angular Deploy](https://github.com/umairelyx/github_search/actions/workflows/deploy-angular.yml/badge.svg)](https://github.com/umairelyx/github_search/actions/workflows/deploy-angular.yml)
+[![Flutter Deploy](https://github.com/uumair327/github_search/actions/workflows/deploy-flutter.yml/badge.svg)](https://github.com/uumair327/github_search/actions/workflows/deploy-flutter.yml)
+[![Angular Deploy](https://github.com/uumair327/github_search/actions/workflows/deploy-angular.yml/badge.svg)](https://github.com/uumair327/github_search/actions/workflows/deploy-angular.yml)
 
 # Github Search
 
@@ -8,9 +8,9 @@ Sample project which illustrates how to setup a Flutter and AngularDart project 
 
 ## 🚀 Live Demos
 
-- **🌐 Landing Page**: [https://umairelyx.github.io/github_search/](https://umairelyx.github.io/github_search/)
-- **📱 Flutter Version**: [https://umairelyx.github.io/github_search/flutter/](https://umairelyx.github.io/github_search/flutter/)
-- **🅰️ Angular Version**: [https://umairelyx.github.io/github_search/angular/](https://umairelyx.github.io/github_search/angular/)
+- **🌐 Landing Page**: [https://uumair327.github.io/github_search/](https://uumair327.github.io/github_search/)
+- **📱 Flutter Version**: [https://uumair327.github.io/github_search/flutter/](https://uumair327.github.io/github_search/flutter/)
+- **🅰️ Angular Version**: [https://uumair327.github.io/github_search/angular/](https://uumair327.github.io/github_search/angular/)
 
 
 
