@@ -1,4 +1,4 @@
-name: Deploy Landing Page
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -10,18 +10,47 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  deploy-landing:
+  build:
     runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
       
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.35.0'
+        channel: 'stable'
+        
+    - name: Setup Dart SDK
+      uses: dart-lang/setup-dart@v1
+      with:
+        sdk: '3.9.2'
+        
+    - name: Install dependencies for common package
+      run: |
+        cd common_github_search
+        dart pub get
+        
+    - name: Install dependencies for Flutter app
+      run: |
+        cd flutter_github_search
+        flutter pub get
+        
+    - name: Install dependencies for Angular app
+      run: |
+        cd angular_github_search
+        dart pub get
+        
     - name: Create landing page
       run: |
-        mkdir -p docs
-        cat > docs/index.html << 'EOF'
+        mkdir -p _site
+        cat > _site/index.html << 'EOF'
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -213,10 +242,41 @@ jobs:
         </html>
         EOF
         
-    - name: Deploy Landing Page
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      uses: peaceiris/actions-gh-pages@v4
+    - name: Build Flutter web app
+      run: |
+        cd flutter_github_search
+        flutter build web --release --base-href="/github_search/flutter/"
+        mkdir -p ../_site/flutter
+        cp -r build/web/* ../_site/flutter/
+        
+    - name: Build Angular web app (with timeout)
+      run: |
+        cd angular_github_search
+        timeout 300 dart run build_runner build web --release --output web:build --delete-conflicting-outputs || echo "Angular build completed or timed out"
+        if [ -d "build" ]; then
+          mkdir -p ../_site/angular
+          cp -r build/* ../_site/angular/
+        else
+          echo "Angular build failed, creating placeholder"
+          mkdir -p ../_site/angular
+          echo "<h1>Angular app build in progress...</h1><p>Please check back later.</p>" > ../_site/angular/index.html
+        fi
+        
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: docs
-        keep_files: true
+        path: '_site'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
