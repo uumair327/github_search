@@ -1,0 +1,2 @@
+# Domain Layer Tests
+Unit and property tests for domain entities, use cases, and business logic.
