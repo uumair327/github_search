@@ -19,8 +19,8 @@ class SearchBodyComponent {
   bool get isSuccess => state is SearchStateSuccess;
   bool get isError => state is SearchStateError;
 
-  List<SearchResultItem> get items =>
-      isSuccess ? (state as SearchStateSuccess).items : [];
+  List<GitHubRepository> get items =>
+      isSuccess ? (state as SearchStateSuccess).repositories : [];
 
   String get error => isError ? (state as SearchStateError).error : '';
 }

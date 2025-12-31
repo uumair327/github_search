@@ -9,5 +9,5 @@ import 'package:ngdart/angular.dart';
 )
 class SearchResultsComponent {
   @Input()
-  late List<SearchResultItem> items;
+  late List<GitHubRepository> items;
 }

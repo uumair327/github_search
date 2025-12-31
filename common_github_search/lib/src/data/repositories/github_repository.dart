@@ -1,12 +1,10 @@
 import 'dart:async';
 
-import 'package:common_github_search/common_github_search.dart' hide SearchResult;
 import '../../domain/entities/entities.dart';
-import '../../domain/repositories/github_repository_interface.dart';
 import '../../domain/exceptions/exceptions.dart';
-import '../data_sources/remote_data_source.dart';
+import '../../domain/repositories/github_repository_interface.dart';
 import '../data_sources/local_data_source.dart';
-import '../models/search_result.dart' as legacy;
+import '../data_sources/remote_data_source.dart';
 
 /// Concrete implementation of GitHubRepositoryInterface
 /// Coordinates between remote and local data sources with caching strategy
@@ -133,38 +131,5 @@ class GitHubRepositoryImpl implements GitHubRepositoryInterface {
       // Cache failures should not affect the main operation
       // Log error in production, but continue execution
     }
-  }
-}
-
-// TEMPORARY: Legacy compatibility class for existing BLoC
-// This will be removed in task 11.1 when BLoC is refactored to use Clean Architecture
-// For now, this maintains backward compatibility with the existing presentation layer
-class GithubRepository {
-  GithubRepository({InMemoryCacheDataSource? cache, GitHubApiDataSource? client})
-    : _client = client ?? GitHubApiDataSource();
-
-  final GitHubApiDataSource _client;
-
-  Future<legacy.SearchResult> search(String term) async {
-    // Temporary implementation for backward compatibility
-    // This delegates to the new API client with proper conversion
-    final criteria = SearchCriteria(query: term);
-    final result = await _client.searchRepositories(criteria);
-    
-    // Convert the new DTO format to the legacy format
-    final legacyItems = result.items.map((dto) => SearchResultItem(
-      fullName: dto.fullName,
-      htmlUrl: dto.htmlUrl,
-      owner: GithubUser(
-        login: dto.owner.login,
-        avatarUrl: dto.owner.avatarUrl,
-      ),
-    )).toList();
-    
-    return legacy.SearchResult(items: legacyItems);
-  }
-
-  void dispose() {
-    _client.close();
   }
 }

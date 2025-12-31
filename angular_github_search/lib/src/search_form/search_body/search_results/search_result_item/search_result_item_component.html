@@ -2,7 +2,8 @@
   <img class="br-100" src="{{ item.owner.avatarUrl }}" />
 </div>
 <div class="fl w-90 ph3">
-  <h1 class="f5 ma0">{{ item.fullName }}</h1>
+  <h1 class="f5 ma0">{{ item.displayName }}</h1>
+  <p class="f6 gray">{{ item.description }}</p>
   <p>
     <a href="{{ item.htmlUrl }}" class="light-blue" target="_blank">{{
       item.htmlUrl

@@ -1,5 +1,5 @@
-import 'package:common_github_search/common_github_search.dart';
 import 'package:equatable/equatable.dart';
+import '../../domain/entities/entities.dart';
 
 sealed class GithubSearchState extends Equatable {
   const GithubSearchState();
@@ -13,15 +13,15 @@ final class SearchStateEmpty extends GithubSearchState {}
 final class SearchStateLoading extends GithubSearchState {}
 
 final class SearchStateSuccess extends GithubSearchState {
-  const SearchStateSuccess(this.items);
+  const SearchStateSuccess(this.repositories);
 
-  final List<SearchResultItem> items;
-
-  @override
-  List<Object> get props => [items];
+  final List<GitHubRepository> repositories;
 
   @override
-  String toString() => 'SearchStateSuccess { items: ${items.length} }';
+  List<Object> get props => [repositories];
+
+  @override
+  String toString() => 'SearchStateSuccess { repositories: ${repositories.length} }';
 }
 
 final class SearchStateError extends GithubSearchState {

@@ -7,5 +7,5 @@ import 'package:ngdart/angular.dart';
 )
 class SearchResultItemComponent {
   @Input()
-  late SearchResultItem item;
+  late GitHubRepository item;
 }

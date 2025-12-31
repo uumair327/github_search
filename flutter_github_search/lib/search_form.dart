@@ -76,9 +76,9 @@ class _SearchBody extends StatelessWidget {
           SearchStateLoading() => const CircularProgressIndicator.adaptive(),
           SearchStateError() => Text(state.error),
           SearchStateSuccess() =>
-            state.items.isEmpty
+            state.repositories.isEmpty
                 ? const Text('No Results')
-                : Expanded(child: _SearchResults(items: state.items)),
+                : Expanded(child: _SearchResults(items: state.repositories)),
         };
       },
     );
@@ -88,7 +88,7 @@ class _SearchBody extends StatelessWidget {
 class _SearchResults extends StatelessWidget {
   const _SearchResults({required this.items});
 
-  final List<SearchResultItem> items;
+  final List<GitHubRepository> items;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class _SearchResults extends StatelessWidget {
 class _SearchResultItem extends StatelessWidget {
   const _SearchResultItem({required this.item});
 
-  final SearchResultItem item;
+  final GitHubRepository item;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,8 @@ class _SearchResultItem extends StatelessWidget {
       leading: CircleAvatar(
         child: Image.network(item.owner.avatarUrl),
       ),
-      title: Text(item.fullName),
+      title: Text(item.displayName),
+      subtitle: item.hasDescription ? Text(item.description) : null,
       onTap: () => launchUrl(Uri.parse(item.htmlUrl)),
     );
   }

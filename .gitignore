@@ -93,3 +93,9 @@ config.local.*
 secrets.json
 api-keys.json
 .secrets/
+
+# Kiro IDE configuration
+.kiro/
+
+# Documentation files (generated/temporary)
+*.md

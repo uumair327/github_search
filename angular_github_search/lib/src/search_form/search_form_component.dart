@@ -13,16 +13,15 @@ import 'package:ngdart/angular.dart';
   pipes: [BlocPipe],
 )
 class SearchFormComponent implements OnInit, OnDestroy {
-  @Input()
-  late GithubRepository githubRepository;
-
   late GithubSearchBloc githubSearchBloc;
 
   @override
   void ngOnInit() {
-    githubSearchBloc = GithubSearchBloc(
-      githubRepository: githubRepository,
-    );
+    // Initialize Clean Architecture dependencies
+    initializeApp();
+    
+    // Create BLoC using the dependency injection container
+    githubSearchBloc = createGithubSearchBloc();
   }
 
   @override
