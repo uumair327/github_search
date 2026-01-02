@@ -5,6 +5,7 @@ import '../../data/data_sources/local_data_source.dart';
 import '../../data/data_sources/remote/github_api_data_source.dart';
 import '../../data/data_sources/local/in_memory_cache_data_source.dart';
 import '../../data/repositories/github_repository_impl.dart';
+import '../../data/strategies/cache_strategy.dart';
 import '../../domain/repositories/github_repository_interface.dart';
 import '../../domain/use_cases/search_repositories_use_case.dart';
 import '../../presentation/bloc/github_search_bloc.dart';
@@ -40,11 +41,16 @@ void configureDependencies() {
     InMemoryCacheDataSource(),
   );
 
+  // Register cache strategy as singleton for consistent caching behavior
+  container.registerSingleton<CacheStrategy>(
+    DefaultCacheStrategy(container.get<LocalDataSource>()),
+  );
+
   // Register repository as singleton for caching benefits
   container.registerSingleton<GitHubRepositoryInterface>(
     GitHubRepositoryImpl(
       remoteDataSource: container.get<RemoteDataSource>(),
-      localDataSource: container.get<LocalDataSource>(),
+      cacheStrategy: container.get<CacheStrategy>(),
     ),
   );
 
