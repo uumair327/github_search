@@ -2,9 +2,9 @@ import 'package:http/http.dart' as http;
 
 import '../../data/data_sources/remote_data_source.dart';
 import '../../data/data_sources/local_data_source.dart';
-import '../../data/data_sources/remote/github_client.dart';
-import '../../data/data_sources/local/github_cache.dart';
-import '../../data/repositories/github_repository.dart';
+import '../../data/data_sources/remote/github_api_data_source.dart';
+import '../../data/data_sources/local/in_memory_cache_data_source.dart';
+import '../../data/repositories/github_repository_impl.dart';
 import '../../domain/repositories/github_repository_interface.dart';
 import '../../domain/use_cases/search_repositories_use_case.dart';
 import '../../presentation/bloc/github_search_bloc.dart';

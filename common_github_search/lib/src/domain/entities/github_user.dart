@@ -12,6 +12,7 @@ class GitHubUser {
   final String login;
   final String avatarUrl;
   final String htmlUrl;
+  
 
   /// Business rule: User login must be valid
   bool get hasValidLogin => login.isNotEmpty && login.trim().length > 0;

@@ -4,7 +4,24 @@
 
 # Github Search
 
-Sample project which illustrates how to setup a Flutter and AngularDart project with code sharing.
+Sample project demonstrating **Clean Architecture** implementation with Flutter and AngularDart, featuring shared business logic and proper separation of concerns.
+
+## 🏗️ Architecture
+
+This project showcases **Clean Architecture** principles with:
+
+- **🎯 Domain Layer**: Pure business logic with entities, use cases, and repository interfaces
+- **📊 Data Layer**: Repository implementations, data sources, and DTOs
+- **🎨 Presentation Layer**: BLoC state management for UI logic
+- **🔧 Core Layer**: Dependency injection and cross-cutting concerns
+
+**Key Features**:
+- ✅ Proper dependency inversion (dependencies flow inward)
+- ✅ Framework-independent business logic
+- ✅ Comprehensive error handling with domain exceptions
+- ✅ Type-safe dependency injection container
+- ✅ Caching strategy with fallback mechanisms
+- ✅ Property-based testing and mocks
 
 ## 🚀 Live Demos
 
@@ -142,21 +159,63 @@ github_search/
 │   ├── workflows/             # CI/CD pipelines
 │   ├── ISSUE_TEMPLATE/        # Issue templates
 │   └── pull_request_template.md
-├── common_github_search/       # Shared Dart library
-├── flutter_github_search/      # Flutter web app
-├── angular_github_search/      # AngularDart web app
+├── common_github_search/       # 🎯 Clean Architecture Shared Library
+│   ├── lib/src/
+│   │   ├── core/              # Cross-cutting concerns (DI, utilities)
+│   │   ├── domain/            # Business logic (entities, use cases, interfaces)
+│   │   ├── data/              # External data access (repositories, data sources, DTOs)
+│   │   └── presentation/      # UI logic (BLoC, events, states)
+│   └── test/                  # Comprehensive test suite
+├── flutter_github_search/      # 📱 Flutter web app
+├── angular_github_search/      # 🅰️ AngularDart web app
+├── CLEAN_ARCHITECTURE_AUDIT_REPORT.md     # Architecture compliance report
+├── CLEAN_ARCHITECTURE_BEST_PRACTICES.md   # Implementation guidelines
 └── README.md
 ```
+
+### Clean Architecture Layers
+
+#### 🎯 Domain Layer (`common_github_search/lib/src/domain/`)
+- **Entities**: `GitHubRepository`, `GitHubUser`, `SearchCriteria` with business logic
+- **Use Cases**: `SearchRepositoriesUseCase` for business operations
+- **Repository Interfaces**: Abstract contracts for data access
+- **Exceptions**: Domain-specific error types with proper mapping
+
+#### 📊 Data Layer (`common_github_search/lib/src/data/`)
+- **Repository Implementations**: Concrete data access with caching
+- **Data Sources**: Remote (GitHub API) and Local (In-memory cache)
+- **DTOs**: Data transfer objects for JSON serialization
+- **Error Mapping**: Convert API errors to domain exceptions
+
+#### 🎨 Presentation Layer (`common_github_search/lib/src/presentation/`)
+- **BLoC Components**: Type-safe state management
+- **Events/States**: Sealed classes for UI interactions
+- **Error Handling**: User-friendly error messages
+
+#### 🔧 Core Layer (`common_github_search/lib/src/core/`)
+- **Dependency Injection**: Type-safe container with proper lifecycles
+- **Utilities**: Shared helper functions and constants
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
+3. Make your changes following [Clean Architecture Best Practices](CLEAN_ARCHITECTURE_BEST_PRACTICES.md)
 4. Run analysis: `dart analyze` or `flutter analyze`
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
+5. Run tests: `dart test` (in common_github_search directory)
+6. Commit your changes (`git commit -m 'Add amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
+
+### Architecture Guidelines
+
+- Follow the established layer boundaries (domain ← data, presentation → domain)
+- Add business logic to domain entities, not DTOs
+- Use dependency injection for all service dependencies
+- Write tests for each layer following the existing patterns
+- Maintain backward compatibility in the shared library exports
+
+See [CLEAN_ARCHITECTURE_AUDIT_REPORT.md](CLEAN_ARCHITECTURE_AUDIT_REPORT.md) for current architecture status.
 
 ## 📝 License
 

@@ -1,6 +1,7 @@
 import '../entities/entities.dart';
 import '../repositories/repositories.dart';
 import '../exceptions/exceptions.dart';
+import '../common/common.dart';
 
 /// Use case for searching GitHub repositories
 /// Encapsulates the business logic for repository search operations

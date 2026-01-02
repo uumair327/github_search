@@ -1,1 +1,2 @@
-export 'github_repository.dart';
+// Data repositories barrel file
+export 'github_repository_impl.dart';
