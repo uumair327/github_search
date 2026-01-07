@@ -7,7 +7,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  bloc: ^9.0.0
+  bloc: ^9.2.0
   common_github_search:
     path: ../common_github_search
   flutter:
