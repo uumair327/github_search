@@ -99,38 +99,20 @@ cd angular_github_search
 webdev serve
 ```
 
-## 🔄 GitHub Actions & Deployment
+## 📚 Documentation
 
-This project includes automated CI/CD pipelines that:
+Comprehensive documentation is available in the [`docs/`](docs/) directory:
 
-- **Analyze & Test**: Run static analysis on all projects
-- **Build**: Create production builds for both Flutter and Angular
-- **Deploy**: Automatically deploy to GitHub Pages on push to main branch
+- **[📋 Complete Documentation Index](docs/INDEX.md)** - Navigate all documentation
+- **[🏗️ Clean Architecture Summary](docs/clean-architecture/CLEAN_ARCHITECTURE_SUMMARY.md)** - Executive summary
+- **[🔧 SOLID Principles Analysis](docs/solid-principles/SOLID_PRINCIPLES_ANALYSIS.md)** - SOLID compliance analysis
+- **[📖 Best Practices Guide](docs/clean-architecture/CLEAN_ARCHITECTURE_BEST_PRACTICES.md)** - Implementation guidelines
 
-### Workflows
-
-1. **Flutter Deployment** (`.github/workflows/deploy-flutter.yml`)
-   - Triggers on changes to `flutter_github_search/` or `common_github_search/`
-   - Builds Flutter web app with proper base href
-   - Deploys to `/flutter/` subdirectory
-
-2. **Angular Deployment** (`.github/workflows/deploy-angular.yml`)
-   - Triggers on changes to `angular_github_search/` or `common_github_search/`
-   - Builds AngularDart web app
-   - Deploys to `/angular/` subdirectory
-
-3. **Landing Page** (`.github/workflows/deploy-landing.yml`)
-   - Creates a beautiful landing page with links to both apps
-   - Deploys to root directory
-
-### Setting Up GitHub Pages
-
-1. Go to your repository **Settings** → **Pages**
-2. Set **Source** to "Deploy from a branch"
-3. Select **Branch**: `gh-pages` and **Folder**: `/ (root)`
-4. Save the settings
-
-The workflows will automatically create and manage the `gh-pages` branch.
+### Quick Links by Role
+- **Architects**: [W5HH Analysis](docs/clean-architecture/CLEAN_ARCHITECTURE_W5HH_ANALYSIS.md)
+- **Developers**: [Best Practices](docs/clean-architecture/CLEAN_ARCHITECTURE_BEST_PRACTICES.md)
+- **Reviewers**: [SOLID Quick Reference](docs/solid-principles/SOLID_QUICK_REFERENCE.md)
+- **Learners**: [Function Analysis](docs/clean-architecture/CLEAN_ARCHITECTURE_FUNCTION_ANALYSIS.md)
 
 ## 🛠️ Development Workflow
 
